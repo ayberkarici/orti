@@ -15,11 +15,13 @@ import { Label } from "@/components/ui/label";
 import { joinCalendar } from "@/app/actions/calendar";
 import { UserPlus } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function JoinCalendarDialog() {
     const [open, setOpen] = useState(false);
     const [code, setCode] = useState("");
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -34,6 +36,9 @@ export function JoinCalendarDialog() {
         } else {
             setCode("");
             setOpen(false);
+            if (result.calendarId) {
+                router.push(`/dashboard/${result.calendarId}`);
+            }
         }
     };
 

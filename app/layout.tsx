@@ -6,7 +6,7 @@ import { Providers } from "@/components/providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Orti - Ortaklar için Takvim",
+    title: "Orti. - Ortaklar için Takvim",
     description: "İş ortakları ve indie yapımcılar için paylaşımlı takvim sistemi",
 };
 

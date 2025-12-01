@@ -38,7 +38,7 @@ export default function LoginPage() {
                             <Calendar className="h-8 w-8 text-white" />
                         </div>
                     </div>
-                    <CardTitle className="text-2xl">Orti&apos;ye Hoş Geldiniz</CardTitle>
+                    <CardTitle className="text-2xl">Orti.&apos;ye Hoş Geldiniz</CardTitle>
                     <CardDescription>
                         Devam etmek için Google hesabınızla giriş yapın
                     </CardDescription>

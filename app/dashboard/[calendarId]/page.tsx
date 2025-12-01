@@ -3,6 +3,9 @@ import { CalendarView } from "@/components/calendar/calendar-view";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { addDays } from "date-fns";
+import { MembersListDialog } from "@/components/calendar/members-list-dialog";
+import { CalendarTitle } from "@/components/calendar/calendar-title";
+import { InviteCode } from "@/components/calendar/invite-code";
 
 interface CalendarPageProps {
     params: Promise<{
@@ -14,37 +17,24 @@ export default async function CalendarPage({ params }: CalendarPageProps) {
     const { calendarId } = await params;
     const supabase = await createClient();
 
-    // Check if user has access to this calendar
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-        redirect("/login");
-    }
-
-    const { data: membership } = await supabase
-        .from("calendar_members")
-        .select("*")
-        .eq("calendar_id", calendarId)
-        .eq("user_id", user.id)
-        .single();
-
-    if (!membership) {
-        redirect("/dashboard");
-    }
-
     // Get calendar info
-    const { data: calendar } = await supabase
+    const { data: calendar, error: calendarError } = await supabase
         .from("calendars")
         .select("*")
         .eq("id", calendarId)
         .single();
 
-    // Get events for the next month
+    // RLS nedeniyle kullanıcı bu takvime erişemiyorsa veya takvim yoksa
+    // Supabase data'yı boş dönecek; bu durumda güvenli şekilde dashboard'a
+    // yönlendiriyoruz.
+    if (!calendar || calendarError) {
+        redirect("/dashboard");
+    }
+
+    // Get events for a shorter window to keep calendar switches fast
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - 7); // Start from last week
-    const endDate = addDays(startDate, 60); // Next 2 months
+    const endDate = addDays(startDate, 30); // Next 1 month instead of 2
 
     const events = await getCalendarEvents(
         calendarId,
@@ -56,11 +46,18 @@ export default async function CalendarPage({ params }: CalendarPageProps) {
 
     return (
         <div className="h-full flex flex-col">
-            <div className="border-b bg-white px-6 py-4">
-                <h1 className="text-3xl font-bold">{calendar?.name || "Takvim"}</h1>
-                <p className="text-sm text-muted-foreground mt-1">
-                    Davet Kodu: <span className="font-mono font-semibold">{calendar?.invite_code}</span>
-                </p>
+            <div className="border-b bg-white px-6 py-4 flex justify-between items-center">
+                <div>
+                    <CalendarTitle
+                        calendarId={calendarId}
+                        initialName={calendar?.name || "Takvim"}
+                    />
+                    <p className="text-sm text-muted-foreground mt-1">
+                        Davet Kodu:{" "}
+                        <InviteCode code={calendar?.invite_code ?? null} />
+                    </p>
+                </div>
+                <MembersListDialog members={members} />
             </div>
             <div className="flex-1">
                 <CalendarView

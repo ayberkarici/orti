@@ -7,6 +7,8 @@ CREATE TABLE profiles (
   email TEXT NOT NULL,
   full_name TEXT,
   avatar_url TEXT,
+  onboarded BOOLEAN DEFAULT false,
+  event_style INTEGER DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -99,9 +101,22 @@ CREATE POLICY "Users can create calendars"
   ON calendars FOR INSERT
   WITH CHECK (auth.uid() = owner_id);
 
-CREATE POLICY "Calendar owners can update their calendars"
+CREATE POLICY "Calendar members can update their calendars"
   ON calendars FOR UPDATE
-  USING (auth.uid() = owner_id);
+  USING (
+    EXISTS (
+      SELECT 1 FROM calendar_members
+      WHERE calendar_members.calendar_id = calendars.id
+      AND calendar_members.user_id = auth.uid()
+    )
+  )
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM calendar_members
+      WHERE calendar_members.calendar_id = calendars.id
+      AND calendar_members.user_id = auth.uid()
+    )
+  );
 
 CREATE POLICY "Calendar owners can delete their calendars"
   ON calendars FOR DELETE

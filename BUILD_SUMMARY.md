@@ -1,4 +1,4 @@
-# 🎉 Orti Project - Build Summary
+# 🎉 Orti. Project - Build Summary
 
 ## Project Successfully Created! ✅
 

@@ -2,6 +2,18 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
+    // If Supabase/Google redirects back to the root with a ?code=... param,
+    // forward it to our dedicated auth callback route so that the session
+    // can be exchanged and the user can be sent to the dashboard.
+    if (request.nextUrl.pathname === "/" && request.nextUrl.searchParams.get("code")) {
+        const code = request.nextUrl.searchParams.get("code");
+        const callbackUrl = new URL("/auth/callback", request.url);
+        if (code) {
+            callbackUrl.searchParams.set("code", code);
+        }
+        return NextResponse.redirect(callbackUrl);
+    }
+
     let response = NextResponse.next({
         request: {
             headers: request.headers,
@@ -72,5 +84,9 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/dashboard/:path*", "/login"],
+    // We need middleware on:
+    // - "/"        → to catch `/?code=...` after OAuth and forward to /auth/callback
+    // - "/login"   → auth guard (signed-in users → /dashboard)
+    // - "/dashboard/*" → protect dashboard routes
+    matcher: ["/", "/dashboard/:path*", "/login"],
 };

@@ -6,7 +6,7 @@ import { Calendar, LogOut } from "lucide-react";
 import { CreateCalendarDialog } from "@/components/calendar/create-calendar-dialog";
 import { JoinCalendarDialog } from "@/components/calendar/join-calendar-dialog";
 import { supabase } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface DashboardSidebarProps {
@@ -21,15 +21,17 @@ interface DashboardSidebarProps {
         invite_code: string;
         userRole: string;
     }>;
-    activeCalendarId?: string;
 }
 
 export function DashboardSidebar({
     user,
     calendars,
-    activeCalendarId,
 }: DashboardSidebarProps) {
     const router = useRouter();
+    const pathname = usePathname();
+
+    const activeCalendarId =
+        pathname?.startsWith("/dashboard/") ? pathname.split("/")[2] : undefined;
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
@@ -37,12 +39,12 @@ export function DashboardSidebar({
     };
 
     return (
-        <div className="w-64 border-r bg-white h-screen flex flex-col">
+        <div className="hidden md:flex w-64 border-r bg-white h-screen flex-col">
             {/* Header */}
             <div className="p-4 border-b">
                 <div className="flex items-center space-x-2">
                     <Calendar className="h-6 w-6 text-primary" />
-                    <span className="text-xl font-bold">Orti</span>
+                    <span className="text-xl font-bold">Orti.</span>
                 </div>
             </div>
 
@@ -78,33 +80,38 @@ export function DashboardSidebar({
                         </p>
                     ) : (
                         <div className="space-y-1">
-                            {calendars.map((calendar) => (
-                                <Link
-                                    key={calendar.id}
-                                    href={`/dashboard/${calendar.id}`}
-                                    className={`block px-3 py-2 rounded-lg text-sm transition-colors ${activeCalendarId === calendar.id
-                                            ? "bg-primary text-primary-foreground"
-                                            : "hover:bg-slate-100"
-                                        }`}
-                                >
-                                    <div className="font-medium">{calendar.name}</div>
-                                    <div className="text-xs opacity-75">
-                                        {calendar.invite_code}
-                                    </div>
-                                </Link>
-                            ))}
+                            {calendars.map((calendar) => {
+                                const isActive = activeCalendarId === calendar.id;
+
+                                return (
+                                    <Link
+                                        key={calendar.id}
+                                        href={`/dashboard/${calendar.id}`}
+                                        className={`block px-3 py-2 rounded-lg text-sm transition-colors border-l-2 ${isActive
+                                            ? "bg-primary/10 text-slate-900 border-primary"
+                                            : "hover:bg-slate-100 border-transparent"
+                                            }`}
+                                    >
+                                        <div className={`font-medium ${isActive ? "font-semibold" : ""}`}>
+                                            {calendar.name}
+                                        </div>
+                                        <div className="text-xs opacity-75">
+                                            {calendar.invite_code}
+                                        </div>
+                                    </Link>
+                                );
+                            })}
                         </div>
                     )}
                 </div>
+            </div>
 
+            {/* Bottom actions */}
+            <div className="p-4 border-t space-y-3">
                 <div className="space-y-2">
                     <CreateCalendarDialog />
                     <JoinCalendarDialog />
                 </div>
-            </div>
-
-            {/* Logout Button */}
-            <div className="p-4 border-t">
                 <Button
                     variant="ghost"
                     className="w-full justify-start"

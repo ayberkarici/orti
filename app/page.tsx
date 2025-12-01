@@ -29,7 +29,7 @@ export default function Home() {
                         <div className="bg-primary/10 p-2 rounded-lg">
                             <Calendar className="h-5 w-5 text-primary" />
                         </div>
-                        <span className="text-xl font-bold tracking-tight">Orti</span>
+                        <span className="text-xl font-bold tracking-tight">Orti.</span>
                     </div>
                     <div className="flex items-center gap-4">
                         <Link href="/login" className="text-sm font-medium text-slate-600 hover:text-primary transition-colors hidden sm:block">
@@ -72,7 +72,7 @@ export default function Home() {
                         </motion.h1>
 
                         <motion.p variants={fadeInUp} className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-                            Karmaşık proje yönetim araçlarını unutun. Orti, iş ortakları ve indie maker&apos;lar için tasarlanmış,
+                            Karmaşık proje yönetim araçlarını unutun. Orti., iş ortakları ve indie maker&apos;lar için tasarlanmış,
                             gerçek zamanlı ve minimalist bir takvim sistemidir.
                         </motion.p>
 
@@ -159,7 +159,7 @@ export default function Home() {
                     <div className="text-center max-w-3xl mx-auto mb-16">
                         <h2 className="text-3xl font-bold text-slate-900 mb-4">İhtiyacınız Olan Her Şey</h2>
                         <p className="text-lg text-slate-600">
-                            Orti, gereksiz özelliklerden arındırılmış, sadece işinize odaklanmanızı sağlayan araçlar sunar.
+                            Orti., gereksiz özelliklerden arındırılmış, sadece işinize odaklanmanızı sağlayan araçlar sunar.
                         </p>
                     </div>
 
@@ -225,7 +225,7 @@ export default function Home() {
                                     </div>
                                     <h3 className="text-2xl font-bold mb-3">Her Yerden Erişim</h3>
                                     <p className="text-slate-600">
-                                        İster ofiste, ister evde, ister yolda. Orti tüm cihazlarınızda sorunsuz çalışır.
+                                        İster ofiste, ister evde, ister yolda. Orti. tüm cihazlarınızda sorunsuz çalışır.
                                         Responsive tasarımı ile mobil deneyimi masaüstü kadar güçlüdür.
                                     </p>
                                 </div>
@@ -310,7 +310,7 @@ export default function Home() {
                                 Planlamaya Başlamaya Hazır mısın?
                             </h2>
                             <p className="text-xl text-slate-300 mb-10">
-                                Orti tamamen ücretsizdir. Kredi kartı gerekmez. Hemen şimdi ilk takvimini oluştur.
+                                Orti. tamamen ücretsizdir. Kredi kartı gerekmez. Hemen şimdi ilk takvimini oluştur.
                             </p>
                             <Link href="/login">
                                 <Button size="lg" className="h-14 px-10 text-lg rounded-full bg-white text-slate-900 hover:bg-slate-100">
@@ -333,7 +333,7 @@ export default function Home() {
                             <div className="bg-primary/10 p-2 rounded-lg">
                                 <Calendar className="h-5 w-5 text-primary" />
                             </div>
-                            <span className="text-xl font-bold">Orti</span>
+                            <span className="text-xl font-bold">Orti.</span>
                         </div>
                         <div className="text-sm text-slate-500">
                             © 2024 Orti. Tüm hakları saklıdır.

@@ -1,4 +1,4 @@
-# Orti Development Checklist
+# Orti. Development Checklist
 
 ## ✅ Completed Features
 
@@ -137,7 +137,7 @@ All core requirements from the spec have been implemented:
 
 - [ ] Daily notes UI component (table structure ready)
 - [ ] User assignment dropdown on events
-- [ ] Calendar member management UI
+- [x] Calendar member management UI (View Members)
 - [ ] Email notifications for invites
 - [ ] Mobile app (React Native)
 - [ ] Dark mode toggle

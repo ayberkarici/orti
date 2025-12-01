@@ -162,6 +162,10 @@ export async function getDailyNote(calendarId: string, date: string) {
 export async function getCalendarMembers(calendarId: string) {
     const supabase = await createClient();
 
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
+
     const { data, error } = await supabase
         .from("calendar_members")
         .select(
@@ -171,7 +175,9 @@ export async function getCalendarMembers(calendarId: string) {
       profiles (
         id,
         full_name,
-        email
+        email,
+        avatar_url,
+        event_style
       )
     `
         )
@@ -187,5 +193,8 @@ export async function getCalendarMembers(calendarId: string) {
         role: item.role,
         name: item.profiles.full_name || item.profiles.email,
         email: item.profiles.email,
+        avatarUrl: item.profiles.avatar_url,
+        eventStyle: item.profiles.event_style ?? 0,
+        isCurrentUser: user ? item.user_id === user.id : false,
     }));
 }

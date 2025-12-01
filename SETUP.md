@@ -1,6 +1,6 @@
-## NEXT STEPS TO GET ORTI RUNNING
+## NEXT STEPS TO GET ORTI. RUNNING
 
-You've successfully set up the Orti project structure! Here's what to do next:
+You've successfully set up the Orti. project structure! Here's what to do next:
 
 ### 1. Set up Supabase Project
 

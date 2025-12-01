@@ -11,6 +11,8 @@ interface CalendarViewProps {
     members: Array<{
         userId: string;
         name: string;
+        eventStyle?: number;
+        isCurrentUser?: boolean;
     }>;
 }
 
@@ -24,6 +26,14 @@ export function CalendarView({
     const [selectedDate, setSelectedDate] = useState<Date | undefined>();
     const [selectedHour, setSelectedHour] = useState<number | undefined>();
     const [selectedEvent, setSelectedEvent] = useState<any>(null);
+
+    // Map userId -> eventStyle index for quick lookup in the grid
+    const memberStyleMap = members.reduce<Record<string, number>>((acc, member) => {
+        if (member.eventStyle !== undefined) {
+            acc[member.userId] = member.eventStyle;
+        }
+        return acc;
+    }, {});
 
     // Sync state with server data when revalidatePath happens
     useEffect(() => {
@@ -89,6 +99,7 @@ export function CalendarView({
             <WeekGrid
                 calendarId={calendarId}
                 events={events}
+                memberStyles={memberStyleMap}
                 onSlotClick={handleSlotClick}
                 onEventClick={handleEventClick}
             />

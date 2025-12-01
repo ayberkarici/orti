@@ -134,3 +134,38 @@ export async function getUserCalendars() {
         userRole: item.role,
     }));
 }
+
+export async function renameCalendar(calendarId: string, name: string) {
+    const supabase = await createClient();
+
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+        return { error: "Giriş yapmanız gerekiyor" };
+    }
+
+    try {
+        // Yetki kontrolünü Supabase RLS policy'lerine bırakıyoruz.
+        // Policy'ler calendar_members tablosuna göre tüm üyelerin güncelleme
+        // yapabilmesine izin verecek şekilde ayarlanmış olmalı.
+        const { error } = await supabase
+            .from("calendars")
+            .update({ name })
+            .eq("id", calendarId);
+
+        if (error) {
+            return { error: error.message };
+        }
+
+        revalidatePath("/dashboard");
+        revalidatePath(`/dashboard/${calendarId}`);
+
+        return { success: true };
+    } catch (error) {
+        console.error("Error renaming calendar:", error);
+        return { error: "Takvim adı güncellenirken bir hata oluştu" };
+    }
+}
+

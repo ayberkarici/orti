@@ -1,4 +1,4 @@
-# Quick Start Guide - Get Orti Running in 5 Minutes
+# Quick Start Guide - Get Orti. Running in 5 Minutes
 
 ## Prerequisites
 - Node.js 18+ installed
@@ -69,7 +69,7 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🎉 Test Your Setup
 
-1. **Landing Page** - You should see the Orti homepage
+1. **Landing Page** - You should see the Orti. homepage
 2. **Click "Giriş Yap"** - Login button
 3. **Sign in with Google** - Use your Google account
 4. **Dashboard** - You'll be redirected after login

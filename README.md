@@ -1,4 +1,4 @@
-# Orti - Collaborative Calendar for Partners
+# Orti. - Collaborative Calendar for Partners
 
 A real-time shared calendar system built for indie makers and business partners to collaborate efficiently.
 

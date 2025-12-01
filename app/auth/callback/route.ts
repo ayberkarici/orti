@@ -1,10 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
+import { getBaseUrl } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
     const requestUrl = new URL(request.url);
     const code = requestUrl.searchParams.get("code");
-    const origin = requestUrl.origin;
+    const baseUrl = getBaseUrl();
 
     if (code) {
         const supabase = await createClient();
@@ -12,13 +13,15 @@ export async function GET(request: Request) {
 
         if (error) {
             console.error('Auth error:', error);
-            return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(error.message)}`);
+            return NextResponse.redirect(
+                `${baseUrl}/login?error=${encodeURIComponent(error.message)}`
+            );
         }
     } else {
         console.error('No code provided in callback URL');
-        return NextResponse.redirect(`${origin}/login?error=no_code`);
+        return NextResponse.redirect(`${baseUrl}/login?error=no_code`);
     }
 
     // URL to redirect to after sign in process completes
-    return NextResponse.redirect(`${origin}/dashboard`);
+    return NextResponse.redirect(`${baseUrl}/dashboard`);
 }

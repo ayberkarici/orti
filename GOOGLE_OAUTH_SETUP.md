@@ -6,7 +6,7 @@ Bu rehber, Google Cloud Console üzerinden kendi OAuth kimlik bilgilerinizi olu�
 
 1. [Google Cloud Console](https://console.cloud.google.com/) adresine gidin.
 2. Sol üstteki proje seçiciye tıklayın ve **"New Project"** (Yeni Proje) butonuna basın.
-3. Projenize bir isim verin (örn: `Orti Calendar`) ve **Create**'e basın.
+3. Projenize bir isim verin (örn: `Orti. Calendar`) ve **Create**'e basın.
 4. Projenin oluşturulmasını bekleyin ve oluşturulduğunda o projeyi seçin.
 
 ## 2. OAuth Consent Screen (İzin Ekranı) Ayarları
@@ -14,7 +14,7 @@ Bu rehber, Google Cloud Console üzerinden kendi OAuth kimlik bilgilerinizi olu�
 1. Sol menüden **"APIs & Services"** > **"OAuth consent screen"** seçeneğine gidin.
 2. User Type olarak **"External"** (Harici) seçin ve **Create**'e basın.
 3. **App Information** kısmını doldurun:
-   - **App name:** Orti (veya uygulamanızın adı)
+   - **App name:** Orti. (veya uygulamanızın adı)
    - **User support email:** Kendi email adresiniz
    - **Developer contact information:** Kendi email adresiniz
 4. **Save and Continue** butonuna basın.
@@ -26,7 +26,7 @@ Bu rehber, Google Cloud Console üzerinden kendi OAuth kimlik bilgilerinizi olu�
 1. Sol menüden **"Credentials"** seçeneğine gidin.
 2. Üstteki **"+ CREATE CREDENTIALS"** butonuna tıklayın ve **"OAuth client ID"** seçeneğini seçin.
 3. **Application type** olarak **"Web application"** seçin.
-4. **Name** kısmına bir isim verin (örn: `Orti Web Client`).
+4. **Name** kısmına bir isim verin (örn: `Orti. Web Client`).
 5. **Authorized redirect URIs** (Yetkili yönlendirme URI'leri) kısmına gelince durun. Buraya Supabase'den alacağımız URL'i yapıştıracağız.
 
 ## 4. Supabase'den Redirect URL Alma
@@ -53,7 +53,7 @@ Bu rehber, Google Cloud Console üzerinden kendi OAuth kimlik bilgilerinizi olu�
 
 ## 7. Son Kontrol
 
-Artık uygulamanızda "Google ile Giriş Yap" butonuna bastığınızda, Google'ın izin ekranı çıkacak ve uygulamanızın adı (Orti) görünecektir.
+Artık uygulamanızda "Google ile Giriş Yap" butonuna bastığınızda, Google'ın izin ekranı çıkacak ve uygulamanızın adı (Orti.) görünecektir.
 
 ---
 
