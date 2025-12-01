@@ -49,7 +49,7 @@ export function MembersListDialog({ members }: MembersListDialogProps) {
                 açıklama kullanmadığımızdan aria-describedby'yi açıkça kaldırıyoruz. */}
             <DialogContent className="sm:max-w-[425px]" aria-describedby={undefined}>
                 <DialogHeader>
-                    <DialogTitle>Orti'ler</DialogTitle>
+                    <DialogTitle>Orti.&apos;ler</DialogTitle>
                 </DialogHeader>
                 <ScrollArea className="max-h-[60vh] pr-4">
                     <div className="space-y-4 mt-4">
